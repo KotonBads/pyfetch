@@ -57,7 +57,7 @@ free_mem = total_mem - used_mem
 
 ### OUTPUT STRING ###
 fetch = f"""
-{yellow}  {distro().strip()}
+{yellow}  {distro().strip()}
 {red}  {cpu}
 {green}塞 {used_mem}MB / {total_mem}MB
 {blue}  {kernel}

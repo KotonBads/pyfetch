@@ -4,6 +4,7 @@ Simple Fetch written in Python
 # Screenshots
 ![Pyfetch](images/pyfetch.png)
 
+
 # Install
 Clone this repository
 ```

@@ -11,6 +11,18 @@ purple = "\033[35m"
 cyan = "\033[36m"
 white = "\033[37m"
 
+### COLOR BLOCKS ###
+def color_blocks():
+    c1="\033[7;30m  \033[0;1;30m"
+    c2="\033[7;31m  \033[0;1;31m"
+    c3="\033[7;32m  \033[0;1;32m"
+    c4="\033[7;33m  \033[0;1;33m"
+    c5="\033[7;34m  \033[0;1;34m"
+    c6="\033[7;35m  \033[0;1;35m"
+    c7="\033[7;36m  \033[0;1;36m"
+    c8="\033[7;37m  \033[0;1;37m"
+    return c1+c2+c3+c4+c5+c6+c7+c8
+
 ### DISTRO ###
 def distro():
     with open('/etc/os-release') as f:
@@ -93,6 +105,8 @@ fetch = f"""
 {green}塞 {used_mem}MB / {total_mem}MB
 {blue}  {kernel()}
 {cyan}  {shell}
+
+{color_blocks()}
 """
 
 print(fetch)

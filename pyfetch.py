@@ -23,8 +23,6 @@ def mem():
     # Formula: usedmem = MemTotal + Shmem - MemFree - Buffers - Cached - SReclaimable
     # Source: https://github.com/KittyKatt/screenFetch/issues/386#issuecomment-249312716
 
-    # current_mem = os.popen('cat /proc/meminfo | grep -E "MemTotal|Shmem|MemFree|Buffers|Cached|SReclaimable"').read().strip().split('\n')
-    
     with open('/proc/meminfo') as f:
         current_mem = f.read().strip().split('\n')
 
@@ -52,16 +50,28 @@ def mem():
 
 ### CPU ###
 def cpu():
-    current_cpu = os.popen('lscpu').read().strip().split('\n')
-    for line in current_cpu:
-        if 'Model name' in line:
-            return line.split(':')[1].strip()
+    with open('/proc/cpuinfo') as f:
+        current_cpu = f.read().strip().split('\n')
+
+        cpu_model = [i for i in current_cpu if 'model name' in i][0].split(':')[1].strip()
+        cpu_cores = [i for i in current_cpu if 'cpu cores' in i][0].split(':')[1].strip()
+        cpu_siblings = [i for i in current_cpu if 'siblings' in i][0].split(':')[1].strip()
+        flags = [i for i in current_cpu if 'flags' in i][0].split(':')[1].strip().split(' ')
+
+        return {
+            'model': cpu_model,
+            'cores': cpu_cores,
+            'threads': cpu_siblings,
+            'flags': flags
+        }
 
 ### KERNEL ###
-kernel = os.popen('uname -r').read().strip()
+def kernel():
+    with open('/proc/version') as f:
+        return f.read().split()[2]
 
 ### SHELL ###
-shell = os.popen('echo $SHELL').read().strip()
+shell = os.environ['SHELL']
 
 ### VARS FOR MEM ###
 x = mem()
@@ -69,12 +79,19 @@ total_mem = round(x['total_mem'] / 1024)
 used_mem = round(x['used_mem'] / 1024)
 free_mem = total_mem - used_mem
 
+### VARS FOR CPU ###
+y = cpu()
+cpu_model = y['model']
+cpu_cores = y['cores']
+cpu_threads = y['threads']
+cpu_flags = y['flags']
+
 ### OUTPUT STRING ###
 fetch = f"""
 {yellow}  {distro().strip()}
-{red}  {cpu()}
+{red}  {cpu_model}
 {green}塞 {used_mem}MB / {total_mem}MB
-{blue}  {kernel}
+{blue}  {kernel()}
 {cyan}  {shell}
 """
 

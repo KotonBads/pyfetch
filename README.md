@@ -2,8 +2,7 @@
 Simple Fetch written in Python
 
 # Screenshots
-![Pyfetch](images/pyfetch.png)
-
+![Pyfetch](images/Pyfetch.png)
 
 # Install
 Clone this repository

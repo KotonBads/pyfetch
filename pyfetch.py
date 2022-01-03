@@ -10,6 +10,7 @@ blue = "\033[34m"
 purple = "\033[35m"
 cyan = "\033[36m"
 white = "\033[37m"
+reset = "\033[0m"
 
 ### COLOR BLOCKS ###
 def color_blocks():
@@ -85,6 +86,9 @@ def kernel():
     with open('/proc/version') as f:
         return f.read().split()[2]
 
+def weather():
+    return os.popen('curl -s wttr.in/?format="%c%C%20%t"').read()
+
 ### SHELL ###
 shell = os.environ['SHELL']
 
@@ -103,6 +107,8 @@ cpu_flags = y['flags']
 
 ### OUTPUT STRING ###
 fetch = f"""
+{blue}{weather()}{reset}
+========================
 {yellow}  {distro().strip()}
 {red}  {cpu_model}
 {green}塞 {used_mem}MB / {total_mem}MB

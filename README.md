@@ -2,9 +2,14 @@
 Simple Fetch written in Python
 
 # Screenshots
-![Pyfetch Thin](https://i.imgur.com/cgUxaaA.png)
+![Pyfetch Thin](https://i.imgur.com/5PtSzgS.png)
 
-![Pyfetch Thick](https://i.imgur.com/kRmHfoC.png)
+![Pyfetch Thick](https://i.imgur.com/ytuX6ps.png)
+
+
+# Requirements
+- Curl
+- Nerd Fonts (or a font with icons)
 
 # Install
 Clone this repository

@@ -92,6 +92,9 @@ def weather():
 ### SHELL ###
 shell = os.environ['SHELL']
 
+### WM/DE ###
+wm = os.environ['XDG_CURRENT_DESKTOP']
+
 ### VARS FOR MEM ###
 x = mem()
 total_mem = round(x['total_mem'] / 1024)
@@ -109,11 +112,12 @@ cpu_flags = y['flags']
 fetch = f"""
 {blue}{weather()}{reset}
 ========================
-{yellow}  {distro().strip()}
+{yellow}  {distro().strip()}
 {red}  {cpu_model}
-{green}塞 {used_mem}MB / {total_mem}MB
+{purple}  {wm}
 {blue}  {kernel()}
 {cyan}  {shell}
+{green}塞 {used_mem}MB / {total_mem}MB
 
 {color_blocks()}
 """

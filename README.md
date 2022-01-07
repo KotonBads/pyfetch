@@ -2,9 +2,9 @@
 Simple Fetch written in Python
 
 # Screenshots
-![Pyfetch Thin](https://i.imgur.com/5PtSzgS.png)
+![Pyfetch Thin](https://i.imgur.com/fQttFvW.png)
 
-![Pyfetch Thick](https://i.imgur.com/ytuX6ps.png)
+![Pyfetch Thick](https://i.imgur.com/Y5J4Yxc.png)
 
 
 # Requirements

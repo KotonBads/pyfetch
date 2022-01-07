@@ -147,7 +147,7 @@ fetch = f"""
 {cyan}  {shell}
 {green}塞 {used_mem}MB / {total_mem}MB
 
-{color_blocks()['thick']}
+{color_blocks()['thin']}
 """
 
 print(fetch)

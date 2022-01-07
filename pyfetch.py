@@ -86,8 +86,17 @@ def kernel():
     with open('/proc/version') as f:
         return f.read().split()[2]
 
+### WEATHER ###
 def weather():
     return os.popen('curl -s wttr.in/?format="%c%C%20%t"').read()
+
+### POWER CONSUMPTION ###
+def power():
+    try:
+        with open('/sys/class/power_supply/BAT0/power_now') as f:
+            return int(f.read().strip()) / 1000000
+    except:
+        return 'N/A'
 
 ### SHELL ###
 shell = os.environ['SHELL']
@@ -117,6 +126,7 @@ fetch = f"""
 {purple}  {wm}
 {blue}  {kernel()}
 {cyan}  {shell}
+{yellow}  {power()}W
 {green}塞 {used_mem}MB / {total_mem}MB
 
 {color_blocks()}

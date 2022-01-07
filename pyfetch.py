@@ -14,8 +14,8 @@ reset = "\033[0m"
 
 ### COLOR BLOCKS ###
 def color_blocks():
-    # sourcery skip: inline-variable, simplify-fstring-formatting
-    # add 2 spaces in the blank space if you want thick color blocks
+
+    # Thin
     c1="\033[7;30m  \033[0;1;30m"
     c2="\033[7;31m  \033[0;1;31m"
     c3="\033[7;32m  \033[0;1;32m"
@@ -24,8 +24,21 @@ def color_blocks():
     c6="\033[7;35m  \033[0;1;35m"
     c7="\033[7;36m  \033[0;1;36m"
     c8="\033[7;37m  \033[0;1;37m"
-    # return f'{c1}{c2}{c3}{c4}{c5}{c6}{c7}{c8}\n{c1}{c2}{c3}{c4}{c5}{c6}{c7}{c8}' # <--- thick color block
-    return f'{c1}{c2}{c3}{c4}{c5}{c6}{c7}{c8}' # <--- thin color block
+
+    # Thick
+    _c1="\033[7;30m    \033[0;1;30m"
+    _c2="\033[7;31m    \033[0;1;31m"
+    _c3="\033[7;32m    \033[0;1;32m"
+    _c4="\033[7;33m    \033[0;1;33m"
+    _c5="\033[7;34m    \033[0;1;34m"
+    _c6="\033[7;35m    \033[0;1;35m"
+    _c7="\033[7;36m    \033[0;1;36m"
+    _c8="\033[7;37m    \033[0;1;37m"
+
+    return {
+        'thin': f'{c1}{c2}{c3}{c4}{c5}{c6}{c7}{c8}',
+        'thick': f'{_c1}{_c2}{_c3}{_c4}{_c5}{_c6}{_c7}{_c8}\n{_c1}{_c2}{_c3}{_c4}{_c5}{_c6}{_c7}{_c8}'
+    }
 
 ### DISTRO ###
 def distro():
@@ -92,6 +105,7 @@ def weather():
 
 ### POWER CONSUMPTION ###
 def power():
+    # only works on battery power
     try:
         with open('/sys/class/power_supply/BAT0/power_now') as f:
             return int(f.read().strip()) / 1000000
@@ -103,6 +117,11 @@ shell = os.environ['SHELL']
 
 ### WM/DE ###
 wm = os.environ['XDG_CURRENT_DESKTOP']
+
+### HOSTNAME AND USER ###
+with open('/etc/hostname') as f:
+    hostname = f.read().strip()
+user = os.environ['USER']
 
 ### VARS FOR MEM ###
 x = mem()
@@ -119,17 +138,16 @@ cpu_flags = y['flags']
 
 ### OUTPUT STRING ###
 fetch = f"""
-{blue}{weather()}{reset}
+{blue}{user}@{hostname}{reset}
 ========================
 {yellow}  {distro().strip()}
 {red}  {cpu_model}
 {purple}  {wm}
 {blue}  {kernel()}
 {cyan}  {shell}
-{yellow}  {power()}W
 {green}塞 {used_mem}MB / {total_mem}MB
 
-{color_blocks()}
+{color_blocks()['thick']}
 """
 
 print(fetch)

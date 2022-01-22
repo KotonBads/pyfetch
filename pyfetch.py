@@ -142,7 +142,7 @@ except IndexError:
 ### OUTPUT STRING ###
 fetch = f"""
                {blue}{user}@{hostname}{reset}
-{black}     .--.      ======================{reset}
+{black}     .--.      {reset}======================{reset}
 {black}    |{white}o{yellow}_{white}o{black} |     {yellow}  {distro().strip()}{reset}
 {black}    |{yellow}:_/{black} |     {red}  {cpu_model}{reset}
 {black}   /{white}/   \{black} \\    {purple}  {wm}{reset}

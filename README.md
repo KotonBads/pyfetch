@@ -2,9 +2,9 @@
 Simple Fetch written in Python
 
 # Screenshots
-![Pyfetch Thin](https://i.imgur.com/fQttFvW.png)
+![Pyfetch Thin](https://i.imgur.com/oWTRUmC.png)
 
-![Pyfetch Thick](https://i.imgur.com/Y5J4Yxc.png)
+![Pyfetch Thick](https://i.imgur.com/JsPaPcT.png)
 
 
 # Requirements
@@ -22,6 +22,13 @@ ln /path/to/pyfetch.py/ ~/local/bin
 cp /path/to/pyfetch.py/ ~/local/bin
 ```
 or wherever you want to install it
+
+# CLI Args
+```
+pyfetch.py --thin # thin color blocks
+pyfetch.py --thick # thick color blocks
+no args # thin color blocks (default)
+```
 
 # Configuration
 Since this is written in Python, this is easily hackable and can be modified to your liking. I might add a configuration file sooner or later depending if enough people actually want it.

@@ -100,8 +100,8 @@ def kernel():
         return f.read().split()[2]
 
 ### WEATHER ###
-def weather():
-    return os.popen('curl -s wttr.in/?format="%c%C%20%t"').read()
+# def weather():
+#     return os.popen('curl -s wttr.in/?format="%c%C%20%t"').read()
 
 ### POWER CONSUMPTION ###
 def power():

@@ -62,20 +62,13 @@ def mem():
         mem_cached = int([i for i in current_mem if 'Cached' in i][0].split()[1])
         mem_sreclaimable = int([i for i in current_mem if 'SReclaimable' in i][0].split()[1])
 
-        mem_stats = {
-            'total': mem_total,
-            'free': mem_free,
-            'buffers': mem_buffers,
-            'cached': mem_cached,
-            'sreclaimable': mem_sreclaimable,
-            'shared': mem_shared
+        return {
+            'used_mem': mem_total + 
+                mem_shared - mem_free - 
+                mem_buffers - mem_cached - 
+                mem_sreclaimable, 
+            'total_mem': mem_total
         }
-        return {'used_mem': mem_stats['total'] + 
-            mem_stats['shared'] - mem_stats['free'] - 
-            mem_stats['buffers'] - mem_stats['cached'] - 
-            mem_stats['sreclaimable'], 
-            'total_mem': mem_stats['total']
-            }
 
 ### CPU ###
 def cpu():

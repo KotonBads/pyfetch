@@ -8,7 +8,7 @@ Simple Fetch written in Python
 
 
 # Requirements
-- Curl
+- Curl (optional for weather)
 - Nerd Fonts (or a font with icons)
 
 # Install

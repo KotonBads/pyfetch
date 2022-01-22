@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import sys
 
 ### COLORS ###
 black = "\033[30m"
@@ -129,18 +130,27 @@ cpu_cores = y['cores']
 cpu_threads = y['threads']
 cpu_flags = y['flags']
 
+### VARS FOR COLOR BLOCKS ###
+try:
+    if sys.argv[1] == '--thin' or sys.argv[1] != '--thick':
+        color_blocks = color_blocks()['thin']
+    else:
+        color_blocks = color_blocks()['thick']
+except IndexError:
+    color_blocks = color_blocks()['thin']
+
 ### OUTPUT STRING ###
 fetch = f"""
-{blue}{user}@{hostname}{reset}
-========================
-{yellow}  {distro().strip()}
-{red}  {cpu_model}
-{purple}  {wm}
-{blue}  {kernel()}
-{cyan}  {shell}
-{green}塞 {used_mem}MB / {total_mem}MB
+               {blue}{user}@{hostname}{reset}
+{black}     .--.      ======================{reset}
+{black}    |{white}o{yellow}_{white}o{black} |     {yellow}  {distro().strip()}{reset}
+{black}    |{yellow}:_/{black} |     {red}  {cpu_model}{reset}
+{black}   /{white}/   \{black} \\    {purple}  {wm}{reset}
+{black}  ({white}|     |{black} )   {blue}  {kernel()}{reset}
+{yellow} /'{white}\_   _/{yellow}`\\   {cyan}  {shell}{reset}
+{yellow} \___){black}={yellow}(___/   {green}塞 {used_mem}MB / {total_mem}MB{reset}
 
-{color_blocks()['thin']}
+{color_blocks}
 """
 
 print(fetch)

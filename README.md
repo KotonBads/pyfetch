@@ -6,7 +6,6 @@ Simple Fetch written in Python
 
 ![Pyfetch Thick](https://i.imgur.com/ve7T89D.png)
 
-
 # Requirements
 - Curl (optional for weather)
 - Nerd Fonts (or a font with icons)

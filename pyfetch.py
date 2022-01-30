@@ -65,9 +65,11 @@ def mem():
 
         return {
             'used_mem': mem_total + 
-                mem_shared - mem_free - 
-                mem_buffers - mem_cached - 
-                mem_sreclaimable, 
+                        mem_shared - 
+                        mem_free - 
+                        mem_buffers - 
+                        mem_cached - 
+                        mem_sreclaimable,
             'total_mem': mem_total
         }
 
@@ -77,15 +79,15 @@ def cpu():
         current_cpu = f.read().strip().split('\n')
 
         cpu_model = [i for i in current_cpu if 'model name' in i][0].split(':')[1].strip()
-        cpu_cores = [i for i in current_cpu if 'cpu cores' in i][0].split(':')[1].strip()
-        cpu_siblings = [i for i in current_cpu if 'siblings' in i][0].split(':')[1].strip()
-        flags = [i for i in current_cpu if 'flags' in i][0].split(':')[1].strip().split(' ')
+        # cpu_cores = [i for i in current_cpu if 'cpu cores' in i][0].split(':')[1].strip()
+        # cpu_siblings = [i for i in current_cpu if 'siblings' in i][0].split(':')[1].strip()
+        # flags = [i for i in current_cpu if 'flags' in i][0].split(':')[1].strip().split(' ')
 
         return {
             'model': cpu_model,
-            'cores': cpu_cores,
-            'threads': cpu_siblings,
-            'flags': flags
+            # 'cores': cpu_cores,
+            # 'threads': cpu_siblings,
+            # 'flags': flags
         }
 
 ### KERNEL ###
@@ -98,13 +100,13 @@ def kernel():
 #     return os.popen('curl -s wttr.in/?format="%c%C%20%t"').read()
 
 ### POWER CONSUMPTION ###
-def power():
+# def power():
     # only works on battery power
-    try:
-        with open('/sys/class/power_supply/BAT0/power_now') as f:
-            return int(f.read().strip()) / 1000000
-    except:
-        return 'N/A'
+    # try:
+    #     with open('/sys/class/power_supply/BAT0/power_now') as f:
+    #         return int(f.read().strip()) / 1000000
+    # except:
+    #     return 'N/A'
 
 ### SHELL ###
 shell = os.environ['SHELL']
@@ -126,9 +128,9 @@ free_mem = total_mem - used_mem
 ### VARS FOR CPU ###
 y = cpu()
 cpu_model = y['model']
-cpu_cores = y['cores']
-cpu_threads = y['threads']
-cpu_flags = y['flags']
+# cpu_cores = y['cores']
+# cpu_threads = y['threads']
+# cpu_flags = y['flags']
 
 ### VARS FOR COLOR BLOCKS ###
 try:

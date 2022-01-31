@@ -43,18 +43,21 @@ def color_blocks():
 
 ### DISTRO ###
 def distro():
-    with open('/etc/os-release') as f:
-        for line in f:
-            if 'PRETTY_NAME' in line:
-                return line.split('=')[1].translate(str.maketrans('', '', '"'))
+    try:
+        with open('/etc/os-release') as f:
+            for line in f:
+                if 'PRETTY_NAME' in line:
+                    return line.split('=')[1].translate(str.maketrans('', '', '"'))
+    except FileNotFoundError:
+        return 'Unknown'
 
 ### MEMORY ###
 def mem():
     # Formula: usedmem = MemTotal + Shmem - MemFree - Buffers - Cached - SReclaimable
     # Source: https://github.com/KittyKatt/screenFetch/issues/386#issuecomment-249312716
-
-    with open('/proc/meminfo') as f:
-        current_mem = f.read().strip().split('\n')
+    try:
+        with open('/proc/meminfo') as f:
+            current_mem = f.read().strip().split('\n')
 
         mem_total = int([i for i in current_mem if 'MemTotal' in i][0].split()[1])
         mem_shared = int([i for i in current_mem if 'Shmem' in i][0].split()[1])
@@ -73,27 +76,44 @@ def mem():
             'total_mem': mem_total
         }
 
+    except FileNotFoundError:
+        return {
+            'used_mem': 0,
+            'total_mem': 0
+        }
+
 ### CPU ###
 def cpu():
-    with open('/proc/cpuinfo') as f:
-        current_cpu = f.read().strip().split('\n')
+    try:
+        with open('/proc/cpuinfo') as f:
+            current_cpu = f.read().strip().split('\n')
 
-        cpu_model = [i for i in current_cpu if 'model name' in i][0].split(':')[1].strip()
-        # cpu_cores = [i for i in current_cpu if 'cpu cores' in i][0].split(':')[1].strip()
-        # cpu_siblings = [i for i in current_cpu if 'siblings' in i][0].split(':')[1].strip()
-        # flags = [i for i in current_cpu if 'flags' in i][0].split(':')[1].strip().split(' ')
+            cpu_model = [i for i in current_cpu if 'model name' in i][0].split(':')[1].strip()
+            # cpu_cores = [i for i in current_cpu if 'cpu cores' in i][0].split(':')[1].strip()
+            # cpu_siblings = [i for i in current_cpu if 'siblings' in i][0].split(':')[1].strip()
+            # flags = [i for i in current_cpu if 'flags' in i][0].split(':')[1].strip().split(' ')
 
+            return {
+                'model': cpu_model,
+                # 'cores': cpu_cores,
+                # 'threads': cpu_siblings,
+                # 'flags': flags
+            }
+    except FileNotFoundError:
         return {
-            'model': cpu_model,
-            # 'cores': cpu_cores,
-            # 'threads': cpu_siblings,
-            # 'flags': flags
+            'model': 'Unknown',
+            # 'cores': 0,
+            # 'threads': 0,
+            # 'flags': []
         }
 
 ### KERNEL ###
 def kernel():
-    with open('/proc/version') as f:
-        return f.read().split()[2]
+    try:
+        with open('/proc/version') as f:
+            return f.read().split()[2]
+    except FileNotFoundError:
+        return 'Unknown'
 
 ### WEATHER ###
 # def weather():
@@ -109,16 +129,25 @@ def kernel():
     #     return 'N/A'
 
 ### SHELL ###
-shell = os.environ['SHELL']
+try:
+    shell = os.environ['SHELL']
+except KeyError:
+    shell = 'Unknown'
 
 ### WM/DE ###
-wm = os.environ['XDG_CURRENT_DESKTOP']
+try:
+    wm = os.environ['XDG_CURRENT_DESKTOP']
+except KeyError:
+    wm = 'Unknown'
 
 ### HOSTNAME AND USER ###
-with open('/etc/hostname') as f:
-    hostname = f.read().strip()
-user = os.environ['USER']
-
+try:
+    with open('/etc/hostname') as f:
+        hostname = f.read().strip()
+    user = os.environ['USER']
+except (FileNotFoundError, KeyError):
+    hostname = 'Unknown'
+    user = 'Unknown'
 ### VARS FOR MEM ###
 x = mem()
 total_mem = round(x['total_mem'] / 1024)
